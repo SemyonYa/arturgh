@@ -12,6 +12,26 @@ footer {
     align-items: center;
     border-top: solid 1px #555;
 }
+.btn {
+    padding: 1px 21px;
+}
+a {
+    color: #1b6d85;
+}
+.btn.logout {
+    background-color: darkred;
+    outline: none;
+    font-weight: 600;
+    color: white;
+    transition: .3s;
+}
+.btn.logout:hover {
+    color: #e4e4e4;
+}
+nav form {
+    padding: 14px 0;
+
+}
 /*
     CRUD
 */
@@ -32,11 +52,167 @@ footer {
     cursor: auto;
 }
 
+/*
+    CLIENT
+ */
+.client-view {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.client-view > * {
+    flex-basis: 100%;
+}
+.client-data {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+.client-data > * {
+    flex-basis: 100%;
+}
+.client-data-group {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.client-data label {
+    /*padding: 5px 20px;*/
+}
+.client-data span {
+    padding: 5px;
+    border: solid 1px #555;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    box-shadow: 0 0 3px 0px rgba(0,0,0,.3);
+}
+.client-payments {
+    flex-basis: 50%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.client-payments > div {
+    flex-basis: 49%;
+    /*border: solid 1px #e4e4e4;*/
+    /*background-color: #e4e4e4;*/
+    border-radius: 10px;
+    box-shadow: 0 0 7px 0px rgba(0,0,0,.3);
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.client-payments > div > button {
+    margin-bottom: 15px;
+    color: white;
+    font-weight: 600;
+    transition: .3s;
+}
+.btn-in {
+    background-color: #006451;
+}
+.btn-out {
+    background-color: darkred;
+}
+.client-payments > div > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.client-payments-in-item, .client-payments-out-item {
+    flex-basis: 100%;
+    padding: 5px;
+    border: solid 2px #555;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.client-payments-in-item {
+    border-color: #006451;
+}
+.client-payments-out-item {
+    border-color: darkred;
+}
+.client-payments-in-item-date {
+    border: dotted 1px #999;
+    border-radius: 3px;
+    padding: 1px;
+}
+.client-payments-in-item-sum {
+    font-weight: 800;
+}
 
-
+.client-net-non-children {
+    padding: 5px;
+    border: solid 1px #e4e4e4;
+    border-radius: 3px;
+    margin-top: 4px;
+}
+.client-net-non-children > span {
+    color: #999;
+    /*font-size: 18px;*/
+    padding: 0 5px;
+}
+.panel-group {
+    margin-bottom: 0;
+}
+.panel-body {
+    padding: 0 0 0px 10px;
+    border-left: solid 1px #ddd;
+}
+.panel-heading {
+    padding: 7px;
+}
+.panel-group .panel {
+    border-radius: 0;
+    border-top-left-radius: 4px;
+}
+.glyphicon-eye-open, .glyphicon-user, .glyphicon-file {
+    cursor: pointer;
+    padding: 3px 6px;
+    color: #1b6d85;
+    border: solid 1px #e4e4e4;
+    border-radius: 3px;
+}
+.glyphicon-eye-open:hover, .glyphicon-user:hover, .glyphicon-file:hover {
+}
+.parent-list {
+    width: 100%;
+}
+.parent-item {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    border: solid 1px #1b6d85;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: .3s;
+}
+.parent-item:hover {
+    box-shadow: 0 0 3px 1px rgba(0,0,0,.3);
+}
+.parent-item-selected {
+    background-color: #1b6d85;
+    color: white;
+    font-weight: 600;
+}
+.tab-net {
+    padding: 5px;
+}
 /**
     TEMP
  */
 .art {
-    padding-top: 100px;
+    padding: 100px 0;
 }

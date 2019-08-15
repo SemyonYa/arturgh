@@ -14,7 +14,7 @@ use app\models\Client;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'user_id')->hiddenInput() ?>
+    <!--    --><? //= $form->field($model, 'user_id')->hiddenInput() ?>
 
     <?= $form->field($model, 'name_f')->textInput(['maxlength' => true]) ?>
 
@@ -32,16 +32,23 @@ use app\models\Client;
 
     <?= $form->field($model, 'snils')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'parent_id')->dropdownList(
-        Client::find()->select(['name_f', 'id'])->indexBy('id')->column(),
-        ['prompt'=>'Выберите клиента...']
-    ); ?>
+    <div class="form-group field-client-parent_id">
+        <label class="control-label" for="ClientParentFio">Пришёл от</label>
+        <input id="ClientParentId" type="hidden" name="Client[parent_id]" value="<?= $model->parent_id ?>"/>
+        <input id="ClientParentFio" type="text" class="form-control" readonly value="<?= $model->getParent()->fioSnils ?>" data-toggle="modal"
+               data-target="#SelectParentModal"/>
+        <div class="help-block">
+            <?php if ($parent_error): ?>
+                <div class="alert alert-danger"><?= $parent_error ?></div>
+            <?php endif; ?>
+        </div>
+    </div>
 
     <?= $form->field($model, 'on_delete')->checkbox() ?>
 
     <?= $form->field($model, 'region_id')->dropdownList(
         Region::find()->select(['name', 'id'])->indexBy('id')->column(),
-        ['prompt'=>'Выберите регион...']
+        ['prompt' => 'Выберите регион...']
     ); ?>
 
     <div class="form-group">
@@ -51,3 +58,9 @@ use app\models\Client;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<!-- Модаль -->
+<div class="modal fade" id="SelectParentModal" data-self-id="<?= $model->id ?>" data-parent-id="<?= $model->parent_id ?>" tabindex="-1" role="dialog" aria-labelledby="SelectParentModalLabel">
+
+</div>
+

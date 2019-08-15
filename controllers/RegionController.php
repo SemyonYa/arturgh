@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Au;
 use Yii;
 use app\models\Region;
 use yii\web\Controller;
@@ -22,10 +23,12 @@ class RegionController extends Controller
         ];
     }
 
-    /**
-     * Lists all Region models.
-     * @return mixed
-     */
+    public function beforeAction($action)
+    {
+        Au::isAdmin();
+        return parent::beforeAction($action);
+    }
+
     public function actionIndex()
     {
         $regions = Region::find()->all();

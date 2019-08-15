@@ -46,6 +46,9 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/user-list' => 'site/user-list',
+                '/signup' => 'site/signup',
+                '/login' => 'site/login',
             ],
         ],
     ],

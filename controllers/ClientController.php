@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Au;
 use Yii;
 use app\models\Client;
 use yii\web\Controller;
@@ -23,10 +24,12 @@ class ClientController extends Controller
         ];
     }
 
-    /**
-     * Lists all Client models.
-     * @return mixed
-     */
+    public function beforeAction($action)
+    {
+        Au::isManager();
+        return parent::beforeAction($action);
+    }
+
     public function actionIndex()
     {
         $clients = Client::find()->all();
@@ -54,10 +57,13 @@ class ClientController extends Controller
     public function actionCreate()
     {
         $model = new Client();
-        $model->user_id = 1;
+        $model->user_id = Yii::$app->user->identity->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->setLevel();
+            if ($model->save()) {
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('create', compact('model'));
@@ -74,8 +80,20 @@ class ClientController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->setLevel();
+            if ($model->parent_id) {
+                $parent_parents = $model->parent->parents;
+                foreach ($parent_parents as $client) {
+                    if ($client->id === $model->id) {
+                        $parent_error = 'Недопустимое значение';
+                        return $this->render('update', compact('model', 'parent_error'));
+                    }
+                }
+            }
+            if ($model->save()) {
+                return $this->redirect('/client/view?id=' . $model->id);
+            }
         }
 
         return $this->render('update', compact('model'));
@@ -109,5 +127,12 @@ class ClientController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionParentList($id, $parent_id)
+    {
+        $this->layout = 'empty';
+        $clients = Client::find()->where(['!=', 'id', $id])->andWhere(['on_delete' => 0])->all();
+        return $this->render('parent-list', compact('clients', 'parent_id'));
     }
 }

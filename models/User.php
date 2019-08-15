@@ -8,6 +8,7 @@ namespace app\models;
 * @property string $password_hash
 * @property string $password_reset_token
 * @property string $email
+* @property string $role
 * @property int $status
 * @property int $created_at
 * @property int $updated_at
@@ -52,16 +53,9 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public static function findIdentityByAccessToken($token, $type = null)
     {
-//        foreach (self::$users as $user) {
-//            if ($user['accessToken'] === $token) {
-//                return new static($user);
-//            }
-//        }
 
         return null;
     }
@@ -77,25 +71,16 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAuthKey()
     {
         return $this->authKey;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function validateAuthKey($authKey)
     {
         return $this->authKey === $authKey;

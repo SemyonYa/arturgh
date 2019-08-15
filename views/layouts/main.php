@@ -5,10 +5,9 @@
 
 use app\widgets\Alert;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+
 
 AppAsset::register($this);
 ?>
@@ -27,36 +26,36 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Регионы', 'url' => ['/region']],
-            ['label' => 'Типы платежей', 'url' => ['/type']],
-            ['label' => 'Клиенты', 'url' => ['/client']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Вход', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Выйти (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
-    ?>
+    <nav id="w0" class="navbar-inverse navbar-fixed-top navbar">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#w0-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Clients</a>
+            </div>
+            <div id="w0-collapse" class="collapse navbar-collapse">
+                <?php if (!Yii::$app->user->isGuest): ?>
+                    <ul id="w1" class="navbar-nav navbar-right nav">
+                        <?php if (Yii::$app->user->identity->role === 1): ?>
+                            <li><a href="/region">Регионы</a></li>
+                            <li><a href="/type">Типы платежей</a></li>
+                            <li><a href="/user-list">Пользователи</a></li>
+                        <?php endif; ?>
+                        <li><a href="/client">Клиенты</a></li>
+                        <li>
+                            <form action="/site/logout" method="post">
+                                <button type="submit" class="btn logout">Выйти (<?= Yii::$app->user->identity->username ?>)</button>
+                            </form>
+                        </li>
+                    </ul>
+                <?php endif; ?>
+            </div>
+        </div>
+    </nav>
 
     <div class="container art">
         <?= Breadcrumbs::widget([
